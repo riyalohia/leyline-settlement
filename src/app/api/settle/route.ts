@@ -24,6 +24,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 			},
 			data: {
 				amount,
+				status: 0,
 				updatedAt: new Date()
 			}
 		})

@@ -20,15 +20,14 @@ const getColor = (status: Status) => {
 }
 
 export default function Sender({ settlement }: { settlement: Settlement }) {
-	const [settlementData, setSettlementData] = useState(settlement)
-	const [amount, setAmount] = useState(settlementData?.amount)
+	const [status, setStatus] = useState(settlement?.status)
+	const [amount, setAmount] = useState(settlement?.amount)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [isEditable, setIsEditable] = useState(false)
 
 	const { socket, isConnected } = useSocket()
 
-	const isStatusAccepted = settlementData?.status === Status.ACCEPTED
-	const showInput = !isStatusAccepted && (isEditable || !settlementData?.amount)
+	const isStatusAccepted = status === Status.ACCEPTED
 
 	const onChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
 		setAmount(Number(e.target.value))
@@ -58,6 +57,7 @@ export default function Sender({ settlement }: { settlement: Settlement }) {
 			})
 			emitAmoutChange()
 			setIsEditable(false)
+			setStatus(Status.PENDING)
 		} else {
 			setIsModalOpen(true)
 		}
@@ -70,9 +70,9 @@ export default function Sender({ settlement }: { settlement: Settlement }) {
 
 	const onConfirm = async () => {
 		const updatedSettlement = await fetchSettlement(senderId, receiverId)
-		setSettlementData(updatedSettlement)
 		setIsModalOpen(false)
 		setAmount(updatedSettlement?.amount)
+		setStatus(updatedSettlement?.status)
 	}
 
 	const onCloseModal = () => setIsModalOpen(false)
@@ -84,7 +84,7 @@ export default function Sender({ settlement }: { settlement: Settlement }) {
 					<Typography className="lg:text-xl mb-2">
 						Current Status
 					</Typography>
-					<Tag color={getColor(settlementData.status)}>{getStatus(settlementData.status)}</Tag>
+					<Tag color={getColor(status)}>{getStatus(status)}</Tag>
 				</div>
 				<div>
 					<Typography className="lg:text-xl mb-2">
@@ -97,9 +97,9 @@ export default function Sender({ settlement }: { settlement: Settlement }) {
 						width={'300px'}
 						value={amount}
 						disabled={isStatusAccepted}
-						style={{ display: showInput ? '' : 'none' }}
+						style={{ display: !isEditable || isStatusAccepted ? 'none' : '' }}
 					/>
-					{!showInput && (
+					{(!isEditable || isStatusAccepted) && (
 						<div className="flex gap-3">
 							<p>
 								$ {amount}

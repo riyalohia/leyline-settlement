@@ -74,3 +74,7 @@ The project involves implementing a settlement process between two parties, Part
         ```js
         socket.to(receiverSocketId).emit(SOCKET_AMOUNT_REFRESH, { amount: data.amount })
         ```
+4. Add mobile friendly UI.
+
+### Video
+https://www.loom.com/share/54dd42c9081340feaef75cdf2b5f068e?sid=b59bf126-49f4-4a5b-9866-4e8623ab2668
