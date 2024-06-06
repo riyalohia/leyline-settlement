@@ -18,6 +18,7 @@ export default function Receiver({ settlement }: { settlement: Settlement }) {
 
 	useEffect(() => {
 		if (socket && isConnected) {
+			// Change the amount on the UI as soon as amount update event is received
 			socket.on(SOCKET_AMOUNT_REFRESH, (data: Amount) => {
 				setAmount(data.amount)
 				messageApi.info(`Settlement Amount is updated`);

@@ -34,7 +34,7 @@ export default function Sender({ settlement }: { settlement: Settlement }) {
 		setAmount(Number(e.target.value))
 	}
 
-	// Emit the amount update information to receiver
+	// Emit the amount update event to receiver
 	function emitAmoutChange() {
 		if (socket && isConnected) {
 			socket.emit(SOCKET_AMOUNT_UPDATE, { amount }, () => {

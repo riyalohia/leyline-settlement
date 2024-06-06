@@ -18,6 +18,7 @@ export const useSocket = () => {
 	return useContext(SocketContext);
 };
 
+// Initiated socket connection
 export const SocketProvider = ({
 	children
 }: {
