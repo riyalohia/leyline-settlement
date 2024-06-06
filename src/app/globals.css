@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --background-app: linear-gradient(180deg, rgba(244, 219, 155, 0.29) 0%, rgba(139, 114, 100, 0) 100%);
+  --logo-color: rgb(87,139,140);
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.bg-main {
+  background: var(--background-app);
+}
+
+.bg-logo {
+  background-color: var(--logo-color);
+}
+
+.card {
+  background: rgba(244, 219, 155, 0.29);
+  box-shadow: 1px 1px 1px 1px rgba(161, 158, 158, 0);
+  border-radius: 6px;
+  height: 300px;
+  width: 40%;
+}
