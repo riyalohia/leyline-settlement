@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, message } from '@/antd';
 import { receiverId, senderId } from "@/mock";
 import { fetchApi } from "@/util/api";
-import { Settlement, Status } from "@/types";
+import { Amount, Settlement, Status } from "@/types";
 import Typography from "./Typography";
 import { SOCKET_AMOUNT_REFRESH, getStatus } from "@/util";
 import { useSocket } from "./SocketProvider";
@@ -18,7 +18,7 @@ export default function Receiver({ settlement }: { settlement: Settlement }) {
 
 	useEffect(() => {
 		if (socket && isConnected) {
-			socket.on(SOCKET_AMOUNT_REFRESH, (data) => {
+			socket.on(SOCKET_AMOUNT_REFRESH, (data: Amount) => {
 				setAmount(data.amount)
 				messageApi.info(`Settlement Amount is updated`);
 			})

@@ -1,6 +1,5 @@
 "use client"
 
-import { SOCKET_HANDSHAKE } from "@/util";
 import { createContext, useContext, useEffect, useState } from "react";
 // @ts-ignore
 import io from 'socket.io-client'
@@ -36,7 +35,6 @@ export const SocketProvider = ({
 
 		socketInstance.on("connect", () => {
 			setIsConnected(true);
-			socketInstance.emit(SOCKET_HANDSHAKE, { socketId: socketInstance.id, userId: 'test' })
 		});
 		socketInstance.on("disconnect", () => {
 			setIsConnected(false);

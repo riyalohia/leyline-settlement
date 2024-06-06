@@ -6,6 +6,7 @@ import { serialize } from 'v8';
 
 const prisma = new PrismaClient();
 
+// API to update the status of settlement
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== 'POST') {
 		return NextResponse.json({ message: 'Method not allowed' }, { status: 405 })
@@ -34,6 +35,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 	}
 };
 
+// API to get the settlement status
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== 'GET') {
 		return NextResponse.json({ message: 'Method not allowed' }, { status: 405 })

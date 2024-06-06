@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 
 export const dynamic = 'force-dynamic'
 
+// API to update the settlement amount
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== 'POST') {
 		return NextResponse.json({ message: 'Method not allowed' }, { status: 405 })
@@ -35,6 +36,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 	}
 };
 
+// API to get the settlement information
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== 'GET') {
 		return NextResponse.json({ message: 'Method not allowed' }, { status: 405 })

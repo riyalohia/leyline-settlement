@@ -1,4 +1,6 @@
-import { SOCKET_AMOUNT_REFRESH, SOCKET_AMOUNT_UPDATE, SOCKET_HANDSHAKE } from '@/util'
+
+import { Amount } from '@/types'
+import { SOCKET_AMOUNT_REFRESH, SOCKET_AMOUNT_UPDATE } from '@/util'
 import { Server as NetServer } from 'http'
 import { NextApiRequest } from 'next'
 // @ts-ignore
@@ -24,22 +26,21 @@ const ioHandler = (req: NextApiRequest, res: any) => {
 		})
 		res.socket.server.io = io
 
-		const sockets: { [key: string]: string } = {};
-
+		// @ts-ignore
 		io.on("connection", function (socket) {
-			socket.on(SOCKET_HANDSHAKE, ({ socketId, userId }) => {
-				if (!sockets.socketId) {
-					sockets[socketId] = userId
-				}
-			})
 
-			socket.on(SOCKET_AMOUNT_UPDATE, ({ amount }) => {
+			socket.on(SOCKET_AMOUNT_UPDATE, (data: Amount) => {
 				console.log('Settlement Amount Updated')
-				socket.broadcast.emit(SOCKET_AMOUNT_REFRESH, { amount })
+
+				/* For the current scope of the project, socket messages are broadcasted to all connected users 
+				 because we are currently considering only two parties.
+				 As the project expands, we should send messages to individual receivers.
+				*/
+				socket.broadcast.emit(SOCKET_AMOUNT_REFRESH, { amount: data.amount })
 			})
 
 			socket.on('disconnect', () => {
-				delete sockets[socket.id]
+				console.log('Client Disconnected')
 			});
 
 		})

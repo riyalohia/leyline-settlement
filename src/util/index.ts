@@ -13,5 +13,4 @@ export const getStatus = (status: Status) => {
 }
 
 export const SOCKET_AMOUNT_UPDATE = 'amount-update'
-export const SOCKET_HANDSHAKE = 'handshake'
 export const SOCKET_AMOUNT_REFRESH = 'amount-refresh'

@@ -1,13 +1,13 @@
 "use client"
 
-import React, { ChangeEvent, MouseEventHandler, useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Button, Input, Modal, Tag } from '@/antd';
 import { receiverId, senderId } from "@/mock";
 import { fetchApi } from "@/util/api";
 import { Settlement, Status } from "@/types";
 import Typography from "./Typography";
 import { fetchSettlement } from "@/util/fetchSettlement";
-import { SOCKET_AMOUNT_REFRESH, SOCKET_AMOUNT_UPDATE, SOCKET_HANDSHAKE, getStatus } from "@/util";
+import { SOCKET_AMOUNT_REFRESH, SOCKET_AMOUNT_UPDATE, getStatus } from "@/util";
 import { EditOutlined } from "@ant-design/icons";
 import { fetchSettlementStatus } from "@/util/fetchSettlementStatus";
 import { useSocket } from "./SocketProvider";
@@ -34,6 +34,7 @@ export default function Sender({ settlement }: { settlement: Settlement }) {
 		setAmount(Number(e.target.value))
 	}
 
+	// Emit the amount update information to receiver
 	function emitAmoutChange() {
 		if (socket && isConnected) {
 			socket.emit(SOCKET_AMOUNT_UPDATE, { amount }, () => {

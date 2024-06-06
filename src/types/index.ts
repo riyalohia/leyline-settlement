@@ -10,3 +10,7 @@ export interface Settlement {
 	amount: number
 	status: Status
 }
+
+export interface Amount {
+	amount: number
+}
